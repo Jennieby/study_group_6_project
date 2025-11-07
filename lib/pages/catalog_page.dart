@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:group_cart_project/data/item_list.dart';
 import 'package:group_cart_project/item_widget.dart';
 import 'package:group_cart_project/pages/cart_page.dart';
+import 'package:group_cart_project/provider/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class CatalogPage extends StatefulWidget {
   const CatalogPage({super.key});
@@ -14,6 +16,7 @@ class CatalogPage extends StatefulWidget {
 class _CatalogPageState extends State<CatalogPage> {
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -21,15 +24,22 @@ class _CatalogPageState extends State<CatalogPage> {
           style: GoogleFonts.nunito(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (context) => CartPage()));
-            },
-            icon: Icon(Icons.shopping_cart_outlined),
-          ),
+        actions: [ Padding(
+          padding: const EdgeInsets.all( 8.0),
+          child: Badge(
+          label: Text("${cartProvider.cartItems.length}"),
+          child: IconButton(
+              
+              onPressed: () {
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => CartPage()));
+              },
+            
+              icon: Icon(Icons.shopping_cart_outlined),
+            ),),
+        )
+          
         ],
       ),
       body: ListView.builder(
