@@ -24,22 +24,62 @@ class _CatalogPageState extends State<CatalogPage> {
           style: GoogleFonts.nunito(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        actions: [ Padding(
-          padding: const EdgeInsets.all( 8.0),
-          child: Badge(
-          label: Text("${cartProvider.cartItems.length}"),
-          child: IconButton(
-              
-              onPressed: () {
-                Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (context) => CartPage()));
-              },
-            
-              icon: Icon(Icons.shopping_cart_outlined),
-            ),),
-        )
-          
+        actions: [
+          // // Using stack to make the cart item counter on the shopping cart icon
+          // Stack(
+          //   clipBehavior: Clip.hardEdge,
+          //   children: [
+          //     IconButton(
+          //       onPressed: () {
+          //         Navigator.of(
+          //           context,
+          //         ).push(MaterialPageRoute(builder: (context) => CartPage()));
+          //       },
+          //       icon: cartProvider.cartItems.isEmpty
+          //           ? Icon(Icons.shopping_cart_outlined)
+          //           : Icon(Icons.shopping_cart),
+          //     ),
+          //     if (cartProvider.cartItems.isNotEmpty)
+          //       Positioned(
+          //         right: 1,
+          //         top: 1,
+          //         child: Container(
+          //           height: 20,
+          //           width: 20,
+          //           decoration: BoxDecoration(
+          //             color: Colors.red.shade800,
+          //             shape: BoxShape.circle,
+          //           ),
+          //           child: Text(
+          //             "${cartProvider.cartItems.length}",
+          //             style: TextStyle(
+          //               fontSize: 12,
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //             textAlign: TextAlign.center,
+          //           ),
+          //         ),
+          //       ),
+          //   ],
+          // ),
+          // using badge to make the cart itrms counter on the shopping cart icon
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Badge(
+              label: Text("${cartProvider.cartItems.length}"),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(builder: (context) => CartPage()));
+                },
+
+                icon: cartProvider.cartItems.isEmpty
+                    ? Icon(Icons.shopping_cart_outlined)
+                    : Icon(Icons.shopping_cart),
+              ),
+            ),
+          ),
         ],
       ),
       body: ListView.builder(
