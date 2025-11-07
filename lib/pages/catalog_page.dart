@@ -66,7 +66,12 @@ class _CatalogPageState extends State<CatalogPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Badge(
-              label: Text("${cartProvider.cartItems.length}"),
+              isLabelVisible: cartProvider.cartItems.isEmpty ? false : true,
+              backgroundColor: Colors.yellow.shade900,
+              label: Text(
+                "${cartProvider.cartItems.length}",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               child: IconButton(
                 onPressed: () {
                   Navigator.of(
